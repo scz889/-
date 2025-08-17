@@ -7,7 +7,7 @@
 #!system = iOS, iPadOS
 #!system_version = 15
 #!loon_version = 3.2.1(372)
-#!date = 2025-08-17 08:46:00
+#!date = 2025-08-17 09:15:00
 
 [General]
 bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.0/8
@@ -19,14 +19,19 @@ URL-REGEX,https://api.bilibili.com/x/web-interface/.*(rcmd|recommend|hot|popular
 URL-REGEX,https://app.bilibili.com/x/v2/(feed|show|rank|hot).*,REJECT
 URL-REGEX,https://api.bilibili.com/x/web-interface/wbi/.*(rcmd|recommend|hot|popular|index).*,REJECT
 URL-REGEX,https://api.bilibili.com/x/feed/index.*,REJECT
+URL-REGEX,https://api.bilibili.com/x/web-interface/index/top/rcmd.*,REJECT
+URL-REGEX,https://api.bilibili.com/x/web-interface/index/top/feed/rcmd.*,REJECT
 
 # 屏蔽直播推荐相关API（需MitM解密HTTPS）
-URL-REGEX,https://api.live.bilibili.com/.*(rec|recommend|live/feed|getMoreRecList).*,REJECT
-URL-REGEX,https://app.bilibili.com/.*live/feed.*,REJECT
+URL-REGEX,https://api.live.bilibili.com/.*(rec|recommend|feed|getMoreRecList).*,REJECT
+URL-REGEX,https://app.bilibili.com/.*live/.*(feed|rec|recommend).*,REJECT
+URL-REGEX,https://api.live.bilibili.com/xlive/app-interface/v2/index/feed.*,REJECT
+URL-REGEX,https://api.live.bilibili.com/xlive/web-interface/v1/webMain/getMoreRecList.*,REJECT
 
 # 屏蔽动态及其他推荐相关API
 URL-REGEX,https://api.bilibili.com/x/polymer/.*(recommend|hot).*,REJECT
 URL-REGEX,https://api.vc.bilibili.com/dynamic_svr/.*(recommend|hot).*,REJECT
+URL-REGEX,https://api.vc.bilibili.com/dynamic_svr/v1/dynamic_svr/dynamic_new.*,REJECT
 
 # 确保其他功能正常（允许Bilibili主域名和相关服务）
 DOMAIN,www.bilibili.com,DIRECT

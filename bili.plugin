@@ -1,0 +1,36 @@
+#!name = 哔哩哔哩推荐视频屏蔽
+#!desc = 屏蔽哔哩哔哩（Bilibili）推荐视频API，保留视频播放、搜索、评论等功能。\n需启用MitM解密HTTPS（包括HTTP/2）并信任Loon证书。\n建议Loon高级配置：代理模式设为“TUN Only”，域名拦截行为设为“DNS”，DNS拦截方式设为“LoopbackIP”。
+#!author = Grok
+#!homepage = https://github.com/SocialSisterYi/bilibili-API-collect
+#!icon = https://raw.githubusercontent.com/SocialSisterYi/bilibili-API-collect/master/favicon.ico
+#!tag = 去推荐, 哔哩哔哩
+#!system = iOS, iPadOS
+#!system_version = 15
+#!loon_version = 3.2.1(372)
+#!date = 2025-08-17 08:15:00
+
+[General]
+bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.0/8
+skip-proxy = 127.0.0.1, localhost
+
+[Rule]
+# 精准屏蔽推荐视频相关API（需MitM解密HTTPS）
+URL-REGEX,https://api.bilibili.com/x/web-interface/.*(rcmd|recommend).*,REJECT
+URL-REGEX,https://app.bilibili.com/x/v2/feed.*,REJECT
+URL-REGEX,https://api.bilibili.com/x/web-interface/wbi/.*(rcmd|recommend).*,REJECT
+URL-REGEX,https://api.bilibili.com/x/web-interface/rank.*,REJECT
+URL-REGEX,https://app.bilibili.com/x/v2/rank.*,REJECT
+URL-REGEX,https://api.bilibili.com/x/feed/index.*,REJECT
+URL-REGEX,https://app.bilibili.com/x/v2/show/popular.*,REJECT
+
+# 确保其他功能正常（允许Bilibili主域名和相关服务）
+DOMAIN,www.bilibili.com,DIRECT
+DOMAIN,bilibili.com,DIRECT
+DOMAIN-SUFFIX,biliapi.net,DIRECT
+DOMAIN-SUFFIX,bilibili.com,DIRECT
+DOMAIN-SUFFIX,bilibili.tv,DIRECT
+DOMAIN-SUFFIX,grpc.biliapi.net,DIRECT
+
+[MitM]
+# 解密Bilibili推荐相关域名（支持通配符，针对HTTPS和HTTP/2请求）
+hostname = api.bilibili.com, app.bilibili.com, *.bilibili.com, grpc.biliapi.net

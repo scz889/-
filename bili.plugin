@@ -14,8 +14,11 @@ bypass-tun = 192.168.0.0/16, 10.0.0.0/8, 172.16.0.0/12, 127.0.0.0/8
 skip-proxy = 127.0.0.1, localhost
 
 [Rule]
+URL-REGEX,https://api.bilibili.com/x/web-interface/card\?.*,DIRECT
+
+# 放行
 # 屏蔽视频推荐相关API（需MitM解密HTTPS）
-# URL-REGEX,https://api.bilibili.com/x/web-interface/.*(rcmd|recommend|hot|popular|index).*,REJECT
+URL-REGEX,https://api.bilibili.com/x/web-interface/.*(rcmd|recommend|hot|popular|index).*,REJECT
 URL-REGEX,https://app.bilibili.com/x/v2/(feed|show|rank|hot).*,REJECT
 URL-REGEX,https://api.bilibili.com/x/web-interface/wbi/.*(rcmd|recommend|hot|popular|index).*,REJECT
 URL-REGEX,https://api.bilibili.com/x/feed/index.*,REJECT
